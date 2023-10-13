@@ -37,6 +37,62 @@ const citySchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+
+    baseDeliveryWeight: {
+      type: Number,
+    },
+    daysToStandardDelivery: {
+      type: String,
+    },
+    daysToPriorityDelivery: {
+      type: String,
+    },
+    daysToSameDayDelivery: {
+      type: String,
+    },
+
+    baseDeliveryStandardRate: {
+      type: Number,
+    },
+    baseDeliveryPriorityRate: {
+      type: Number,
+    },
+    baseDeliverySameDayRate: {
+      type: Number,
+    },
+    extraKgDeliveryStandardRate: {
+      type: Number,
+    },
+    extraKgDeliveryPriorityRate: {
+      type: Number,
+    },
+    extraKgDeliverySameDayRate: {
+      type: Number,
+    },
+    allowPayOnDelivery: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    payOnDeliveryMaxWeightInKg: {
+      type: Number,
+    },
+
+    allowSameDayDelivery: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    allowStandardDelivery: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    allowPriorityDelivery: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
   },
   {
     toJSON: { virtuals: true },

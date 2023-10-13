@@ -8,8 +8,9 @@ const transactionSchema = new mongoose.Schema(
       required: true,
     },
 
-    productCurrency: {
-      type: String,
+    curency: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Currency",
     },
 
     totalDeliveryCost: {
@@ -17,21 +18,6 @@ const transactionSchema = new mongoose.Schema(
     },
     totalProductCost: {
       type: Number,
-    },
-    totalProductCostUk: {
-      type: Number,
-    },
-    totalProductCostUs: {
-      type: Number,
-    },
-    recipientName: {
-      type: String,
-    },
-    recipientPhoneNumber: {
-      type: String,
-    },
-    recipientEmailAddress: {
-      type: String,
     },
 
     transactionDate: {
@@ -45,13 +31,13 @@ const transactionSchema = new mongoose.Schema(
 
     paymentStatus: {
       type: String,
-      enum: ["to-be-confirmed", "paid", "not-processed"],
-      default: "to-be-confirmed",
+      default: "not-processed",
+      enum: ["not-processed", "collect-payment-on-delivery", "paid"],
     },
     paymentMethod: {
       type: String,
-      default: "audit",
-      enum: ["audit", "card", "foreigner"],
+      default: "card",
+      enum: ["card", "payOnDelivery"],
     },
     status: {
       type: String,
@@ -68,6 +54,91 @@ const transactionSchema = new mongoose.Schema(
     rejectionReason: {
       type: String,
       trim: true,
+    },
+    customerName: {
+      type: String,
+    },
+    customerPhoneNumber: {
+      type: String,
+    },
+    customerEmailAddress: {
+      type: String,
+    },
+    customerEmailAddress: {
+      type: String,
+    },
+    recipientName: {
+      type: String,
+    },
+
+    recipientPhoneNumber: {
+      type: String,
+    },
+    recipientEmailAddress: {
+      type: String,
+    },
+    recipientAddress: {
+      type: String,
+    },
+    nearestBusstop: {
+      type: String,
+    },
+    postalCode: {
+      type: String,
+    },
+    recipientCountry: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Country",
+    },
+    recipientState: {
+      type: mongoose.Schema.ObjectId,
+      ref: "State",
+    },
+    recipientCity: {
+      type: mongoose.Schema.ObjectId,
+      ref: "City",
+    },
+    deliveryMode: {
+      type: String,
+      default: "standard",
+      enum: ["standard", "priority", "sameday"],
+    },
+    vatRate: {
+      type: Number,
+    },
+    vat: {
+      type: Number,
+    },
+    totalWeight: {
+      type: Number,
+    },
+    payOnDeliveryMaxWeightInKg: {
+      type: Number,
+    },
+    implementVatCollection: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    salesTax: {
+      type: Number,
+    },
+    revenue: {
+      type: Number,
+    },
+    origin: {
+      type: mongoose.Schema.ObjectId,
+      ref: "State",
+    },
+    allowOriginSalesTax: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    implementSalesTaxCollection: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
     },
   },
   {

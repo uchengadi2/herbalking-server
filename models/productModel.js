@@ -24,8 +24,22 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [false, "Please provide the image cover"],
     },
+    mainImage: {
+      type: String,
+    },
+    images: [
+      {
+        type: String,
+      },
+    ],
 
     totalUnits: {
+      type: Number,
+      default: 0,
+
+      required: [false, "A product must have quanyity"],
+    },
+    remainingUnits: {
       type: Number,
       default: 0,
 
@@ -44,6 +58,19 @@ const productSchema = new mongoose.Schema(
     },
 
     pricePerUnit: {
+      type: Number,
+    },
+
+    minQuantity: {
+      type: Number,
+      default: 1,
+    },
+    isOnPromo: {
+      type: String,
+      default: "no",
+      enum: ["no", "yes"],
+    },
+    promoPrice: {
       type: Number,
     },
     currency: {
@@ -86,6 +113,122 @@ const productSchema = new mongoose.Schema(
     configuration: {
       type: String,
     },
+    displayOnStore: {
+      type: String,
+      default: "yes",
+      enum: ["yes", "no"],
+    },
+    expiryDate: {
+      type: Date,
+    },
+    manufacturer: {
+      type: String,
+    },
+    countryOfOrigin: {
+      type: String,
+    },
+    features: {
+      type: String,
+    },
+    benefits: {
+      type: String,
+    },
+    sideEffects: {
+      type: String,
+    },
+    dosage: {
+      type: String,
+    },
+    ingredients: {
+      type: String,
+    },
+    model: {
+      type: String,
+    },
+    yearManufactured: {
+      type: String,
+    },
+    brand: {
+      type: String,
+    },
+    make: {
+      type: String,
+    },
+    source: {
+      type: String,
+    },
+    salesPreference: {
+      type: String,
+      default: "retail",
+      enum: ["retail", "wholesale"],
+    },
+    requestQuote: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    allowSubscription: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+
+    shopsAvailable: {
+      type: String,
+    },
+    slug: {
+      type: String,
+    },
+    type: {
+      type: String,
+      default: "otc",
+      enum: [
+        "otc",
+        "supplements",
+        "supplement for men",
+        "supplement for women",
+        "supplement for kid",
+        "contraceptives",
+        "energy drink",
+      ],
+    },
+    howToUse: {
+      type: String,
+    },
+    pricingMechanism: {
+      type: String,
+      default: "pricing",
+      enum: ["pricing", "request-quote", "bidding"],
+    },
+    weightInKg: {
+      type: Number,
+    },
+    presentWeightUnitIn: {
+      type: String,
+      default: "g",
+      enum: ["g", "kg", "tonnes", "lb"],
+    },
+    isVatable: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+
+    revenueMargin: {
+      type: Number,
+    },
+    revenueMarginShouldPrevail: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+
+    origins: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "City",
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },

@@ -3,12 +3,15 @@ const validator = require("validator");
 
 const cartSchema = new mongoose.Schema(
   {
-    course: {
+    product: {
       type: mongoose.Schema.ObjectId,
-      ref: "Course",
+      ref: "Product",
     },
 
     quantity: {
+      type: Number,
+    },
+    minQuantity: {
       type: Number,
     },
     price: {
@@ -41,6 +44,27 @@ const cartSchema = new mongoose.Schema(
     },
     preferredStartDate: {
       type: Date,
+    },
+
+    weightInKg: {
+      type: Number,
+    },
+    isVatable: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    revenueMargin: {
+      type: Number,
+    },
+    revenueMarginShouldPrevail: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+
+    payOnDeliveryMaxWeightInKg: {
+      type: Number,
     },
   },
 

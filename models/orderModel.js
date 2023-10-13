@@ -17,7 +17,7 @@ const orderSchema = new mongoose.Schema(
     },
     product: {
       type: mongoose.Schema.ObjectId,
-      ref: "Course",
+      ref: "Product",
     },
     productCategory: {
       type: mongoose.Schema.ObjectId,
@@ -36,24 +36,53 @@ const orderSchema = new mongoose.Schema(
     orderedPrice: {
       type: Number,
     },
-    productCurrency: {
-      type: String,
+    currency: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Currency",
     },
 
-    totalDeliveryCost: {
-      type: Number,
+    customerName: {
+      type: String,
     },
-    totalProductCost: {
-      type: Number,
+    customerPhoneNumber: {
+      type: String,
+    },
+    customerEmailAddress: {
+      type: String,
+    },
+    customerEmailAddress: {
+      type: String,
     },
     recipientName: {
       type: String,
     },
+
     recipientPhoneNumber: {
       type: String,
     },
     recipientEmailAddress: {
       type: String,
+    },
+    recipientAddress: {
+      type: String,
+    },
+    nearestBusstop: {
+      type: String,
+    },
+    postalCode: {
+      type: String,
+    },
+    recipientCountry: {
+      type: mongoose.Schema.ObjectId,
+      ref: "Country",
+    },
+    recipientState: {
+      type: mongoose.Schema.ObjectId,
+      ref: "State",
+    },
+    recipientCity: {
+      type: mongoose.Schema.ObjectId,
+      ref: "City",
     },
 
     dateAddedToCart: {
@@ -71,30 +100,45 @@ const orderSchema = new mongoose.Schema(
 
     paymentStatus: {
       type: String,
-      enum: ["to-be-confirmed", "paid", "not-processed"],
-      default: "to-be-confirmed",
+      default: "not-processed",
+      enum: ["not-processed", "collect-payment-on-delivery", "paid"],
     },
     paymentMethod: {
       type: String,
-      default: "audit",
-      enum: ["audit", "card", "foreigner"],
+      default: "card",
+      enum: ["card", "payOnDelivery"],
     },
-    status: {
-      type: String,
-      default: "unprocessed",
-      enum: [
-        "unprocessed",
-        "ready-for-delivery",
-        "rejected",
-        "assigned-for-delivery",
-      ],
+
+    salesTax: {
+      type: Number,
     },
-    rejectionReason: {
-      type: String,
-      trim: true,
+    revenue: {
+      type: Number,
     },
-    preferredStartDate: {
-      type: Date,
+    vatRate: {
+      type: Number,
+    },
+    vat: {
+      type: Number,
+    },
+    origin: {
+      type: mongoose.Schema.ObjectId,
+      ref: "State",
+    },
+    allowOriginSalesTax: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    implementSalesTaxCollection: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    isVatable: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
     },
   },
   {

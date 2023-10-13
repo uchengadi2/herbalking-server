@@ -2,62 +2,55 @@ const mongoose = require("mongoose");
 
 const policySchema = new mongoose.Schema(
   {
-    status: {
-      type: String,
-      enum: ["active", "inactive"],
-      unique: true,
-    },
-
     country: {
-      type: String,
-      default: "Nigeria",
-      enum: ["Nigeria"],
+      type: mongoose.Schema.ObjectId,
+      ref: "Country",
     },
     currency: {
-      name: {
-        type: String,
-        default: "Naira",
-      },
-      code: {
-        type: String,
-        default: "NGN",
-      },
+      type: mongoose.Schema.ObjectId,
+      ref: "Currency",
     },
-    paymentSettings: {
-      initialPercentagePaymentForRetention: {
-        type: Number,
-      },
-      initialPaymentDaysToRemit: {
-        type: Number,
-      },
-      secondPercentagePaymentForRetention: {
-        type: Number,
-      },
-      secondPaymentDaysToRemit: {
-        type: Number,
-      },
-      thirdPercentagePaymentForRetention: {
-        type: Number,
-      },
-      thirdPaymentDaysToRemit: {
-        type: Number,
-      },
+
+    vat: {
+      type: Number,
     },
-    tax: {
-      vat: {
-        type: Number,
-      },
-      sales: {
-        lagos: {
-          type: Number,
-        },
-        abia: {
-          type: Number,
-        },
-        abuja: {
-          Number,
-        },
-      },
+    implementVatCollection: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+
+    status: {
+      type: String,
+      default: "inactive",
+      enum: ["inactive", "active"],
+    },
+    shoppingMode: {
+      type: String,
+      default: "online",
+      enum: ["online", "onsite"],
+    },
+    onlineOrigin: {
+      type: mongoose.Schema.ObjectId,
+      ref: "State",
+    },
+    allowCentralCommission: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    commissionRate: {
+      type: Number,
+    },
+    allowOriginSalesTax: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    implementSalesTaxCollection: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
     },
   },
   {

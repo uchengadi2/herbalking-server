@@ -48,6 +48,9 @@ const stateSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    salesTaxRate: {
+      type: Number,
+    },
   },
   {
     toJSON: { virtuals: true },
