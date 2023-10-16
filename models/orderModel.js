@@ -101,7 +101,12 @@ const orderSchema = new mongoose.Schema(
     paymentStatus: {
       type: String,
       default: "not-processed",
-      enum: ["not-processed", "collect-payment-on-delivery", "paid"],
+      enum: [
+        "not-processed",
+        "collect-payment-on-delivery",
+        "paid",
+        "to-be-confirmed",
+      ],
     },
     paymentMethod: {
       type: String,
@@ -139,6 +144,33 @@ const orderSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
       enum: [false, true],
+    },
+    deliveryStatus: {
+      type: String,
+      default: "pending",
+      enum: ["pending", "on-transit", "delivered", "returned"],
+    },
+    deliveryMode: {
+      type: String,
+      default: "standard",
+      enum: ["standard", "priority", "sameday"],
+    },
+    daysToDelivery: {
+      type: String,
+    },
+    recipientCountryName: {
+      type: String,
+    },
+    recipientStateName: {
+      type: String,
+    },
+    recipientCityName: {
+      type: String,
+    },
+    shopType: {
+      type: String,
+      default: "online",
+      enum: ["online", "onsite"],
     },
   },
   {

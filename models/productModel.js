@@ -229,6 +229,10 @@ const productSchema = new mongoose.Schema(
         ref: "City",
       },
     ],
+    minimumDaysToEffectiveReview: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     toJSON: { virtuals: true },
