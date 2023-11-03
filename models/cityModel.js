@@ -105,6 +105,9 @@ citySchema.pre(/^find/, function (next) {
   this.populate({
     path: "country",
   });
+  this.populate({
+    path: "state",
+  });
   next();
 });
 

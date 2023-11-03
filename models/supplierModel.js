@@ -1,48 +1,39 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const logisticsPartnerSchema = new mongoose.Schema(
+const supplierSchema = new mongoose.Schema(
   {
-    carrierNumber: {
+    supplierNumber: {
       type: String,
-      required: [true, "Please provide the name of a carrier"],
+      required: [true, "Please provide the name of a vendor"],
+    },
+    refNumber: {
+      type: String,
     },
     name: {
       type: String,
-      required: [false, "Please provide the name of a carrier"],
+      required: [false, "Please provide the name of a vendor"],
     },
     description: {
       type: String,
       trim: true,
     },
-    address: {
-      type: String,
-    },
     type: {
       type: String,
-      default: "individual",
-      enum: ["corporate", "individual"],
+      default: "local",
+      enum: ["local", "foreign"],
     },
     logo: {
       type: String,
       required: [false, "Please provide the logo of this vendor"],
     },
+    address: {
+      type: String,
+    },
     country: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "Country",
-      },
-    ],
-    state: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "State",
-      },
-    ],
-    city: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "City",
       },
     ],
 
@@ -91,6 +82,12 @@ const logisticsPartnerSchema = new mongoose.Schema(
         },
       },
     ],
+    product: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
 
   {
@@ -100,18 +97,16 @@ const logisticsPartnerSchema = new mongoose.Schema(
 );
 
 //QUERY MIDDLEWARE
-logisticsPartnerSchema.pre(/^find/, function (next) {
+supplierSchema.pre(/^find/, function (next) {
   this.populate({
-    path: "city",
+    path: "country",
   });
   this.populate({
-    path: "createdBy",
+    path: "product",
   });
+
   next();
 });
 
-const LogisticsPartner = mongoose.model(
-  "LogisticsPartner",
-  logisticsPartnerSchema
-);
-module.exports = LogisticsPartner;
+const Supplier = mongoose.model("Supplier", supplierSchema);
+module.exports = Supplier;

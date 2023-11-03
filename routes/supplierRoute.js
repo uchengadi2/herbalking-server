@@ -1,6 +1,6 @@
 const express = require("express");
 
-const logisticsPartnerController = require("./../controllers/logisticsPartnerController");
+const supplierController = require("./../controllers/supplierController");
 const authController = require("./../controllers/authController");
 
 const router = express.Router();
@@ -15,10 +15,10 @@ router
   .route("/")
   .get(
     //authController.protect,
-    //authController.restrictTo("admin", "staff"),
-    logisticsPartnerController.getAllLogisticsPartners
+    //authController.restrictTo("admin"),
+    supplierController.getAllSuppliers
   )
-  .post(logisticsPartnerController.createLogisticsPartner);
+  .post(supplierController.createSupplier);
 
 //router.use(authController.protect);
 
@@ -26,16 +26,17 @@ router
   .route("/:id")
   .get(
     //authController.restrictTo("admin", "staff"),
-    logisticsPartnerController.getLogisticsPartner
+    supplierController.getSupplier
   )
   .patch(
-    ////authController.restrictTo("admin", "staff"),
-
-    logisticsPartnerController.updateLogisticsPartner
+    //authController.restrictTo("admin", "staff"),
+    // vendorController.uploadVendorLogo,
+    // vendorController.resizeVendorLogo,
+    supplierController.updateSupplier
   )
   .delete(
     //authController.restrictTo("admin"),
-    logisticsPartnerController.deleteLogisticsPartner
+    supplierController.deleteSupplier
   );
 
 module.exports = router;

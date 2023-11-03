@@ -41,6 +41,14 @@ const transactionRoute = require("./routes/transactionRoute");
 const courseRoute = require("./routes/courseRoute");
 const channelRoute = require("./routes/channelRoute");
 const programmeRoute = require("./routes/programmeRoute");
+const locationRoute = require("./routes/locationRoute");
+const supplierRoute = require("./routes/supplierRoute");
+const affiliateRoute = require("./routes/affiliateRoute");
+const onboardProductRoute = require("./routes/onboardProductRoute");
+const inventoryRoute = require("./routes/inventoryRoute");
+const transferRoute = require("./routes/transferRoute");
+const remediationRoute = require("./routes/remediationRoute");
+const delistmentRoute = require("./routes/delistmentRoute");
 
 const app = express();
 
@@ -133,14 +141,20 @@ app.use("/api/v1/carts", cartRoute);
 app.use("/api/v1/rates", rateRoute);
 app.use("/api/v1/relatedproducts", relatedProductRoute);
 app.use("/api/v1/productsonsale", productsOnSaleRoute);
-app.use("/api/v1/logisticspartners", logisticsPartnerRoute);
+app.use("/api/v1/carriers", logisticsPartnerRoute);
 app.use("/api/v1/deliveries", deliveryRoute);
 app.use("/api/v1/transactions", transactionRoute);
 app.use("/api/v1/courses", courseRoute);
 app.use("/api/v1/channels", channelRoute);
 app.use("/api/v1/programmes", programmeRoute);
-
-channelRoute;
+app.use("/api/v1/locations", locationRoute);
+app.use("/api/v1/suppliers", supplierRoute);
+app.use("/api/v1/affiliates", affiliateRoute);
+app.use("/api/v1/onboards", onboardProductRoute);
+app.use("/api/v1/inventories", inventoryRoute);
+app.use("/api/v1/transfers", transferRoute);
+app.use("/api/v1/remediations", remediationRoute);
+app.use("/api/v1/delistments", delistmentRoute);
 
 //tackling unhandled routes
 app.all("*", (req, res, next) => {

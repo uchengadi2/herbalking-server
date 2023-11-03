@@ -17,52 +17,33 @@ const vendorSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      default: "corporate",
-      enum: ["corporate", "individual"],
+      default: "local",
+      enum: ["local", "abroad"],
     },
     logo: {
       type: String,
       required: [false, "Please provide the logo of this vendor"],
     },
-    vendorCountry: [
+    address: {
+      type: String,
+    },
+    country: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "Country",
       },
     ],
-    location: {
-      locationAddress: String,
-      locationCity: [
-        {
-          type: mongoose.Schema.ObjectId,
-          ref: "City",
-        },
-      ],
-      locationState: [
-        {
-          type: mongoose.Schema.ObjectId,
-          ref: "State",
-        },
-      ],
-      locationCountry: [
-        {
-          type: mongoose.Schema.ObjectId,
-          ref: "Country",
-        },
-      ],
-      //locationCoordinates: [Number],
-      // locationLatitude: Number,
-      // locationLongititde: Number,
-      officePhoneNumber: String,
-    },
 
     contactPerson: {
-      contactPersonName: {
-        type: String,
-      },
-      contactPersonPhoneNumber: [String],
-      contactPersonEmailAddress: String,
+      type: String,
     },
+    contactPhoneNumber: {
+      type: String,
+    },
+    contactPersonEmail: {
+      type: String,
+    },
+
     bankDetails: {
       bankName: {
         type: String,
@@ -96,12 +77,31 @@ const vendorSchema = new mongoose.Schema(
         required: [false, "Please provide the bank's IBAN number"],
       },
     },
+    product: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
+
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );
+
+//QUERY MIDDLEWARE
+vendorSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "country",
+  });
+  this.populate({
+    path: "product",
+  });
+
+  next();
+});
 
 const Vendor = mongoose.model("Vendor", vendorSchema);
 module.exports = Vendor;

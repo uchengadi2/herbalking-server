@@ -52,10 +52,12 @@ const productSchema = new mongoose.Schema(
         ref: "Category",
       },
     ],
-    vendor: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Vendor",
-    },
+    suppliers: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Supplier",
+      },
+    ],
 
     pricePerUnit: {
       type: Number,
@@ -233,12 +235,48 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    hasVariant: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    hasSizeVariant: { type: Boolean, default: false, enum: [false, true] },
+    hasColourVariant: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    hasMaterialVariant: {
+      type: Boolean,
+      default: false,
+      enum: [false, true],
+    },
+    hasStyleVariant: { type: Boolean, default: false, enum: [false, true] },
+    variant: [
+      {
+        size: { type: String | null },
+        colour: { type: String | null },
+        material: { type: String | null },
+        style: { type: String | null },
+        image: { type: String },
+        images: { type: Array },
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 );
+
+//QUERY MIDDLEWARE
+productSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "category",
+  });
+
+  next();
+});
 
 const Product = mongoose.model("Product", productSchema);
 

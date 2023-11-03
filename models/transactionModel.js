@@ -8,7 +8,7 @@ const transactionSchema = new mongoose.Schema(
       required: true,
     },
 
-    curency: {
+    currency: {
       type: mongoose.Schema.ObjectId,
       ref: "Currency",
     },
@@ -166,7 +166,7 @@ const transactionSchema = new mongoose.Schema(
     shopType: {
       type: String,
       default: "online",
-      enum: ["online", "onsite"],
+      enum: ["online", "pos", "affiliate"],
     },
   },
   {
@@ -174,6 +174,30 @@ const transactionSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+//QUERY MIDDLEWARE
+transactionSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "currency",
+  });
+  this.populate({
+    path: "orderedBy",
+  });
+  this.populate({
+    path: "recipientCountry",
+  });
+  this.populate({
+    path: "recipientState",
+  });
+  this.populate({
+    path: "recipientCity",
+  });
+  this.populate({
+    path: "origin",
+  });
+
+  next();
+});
 
 const Transaction = mongoose.model("Transaction", transactionSchema);
 

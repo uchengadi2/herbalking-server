@@ -8,13 +8,13 @@ const router = express.Router();
 router
   .route("/")
   .get(
-    authController.protect,
-    authController.restrictTo("admin", "user"),
+    //authController.protect,
+    // authController.restrictTo("admin", "user"),
     transactionController.getAllTransactions
   )
   .post(
     authController.protect,
-    authController.restrictTo("admin", "user"),
+    // authController.restrictTo("admin", "user"),
     transactionController.createTransaction
   );
 
@@ -24,15 +24,15 @@ router.use(authController.protect);
 router
   .route("/:id")
   .get(
-    authController.restrictTo("admin", "user"),
+    // authController.restrictTo("admin", "user"),
     transactionController.getTransaction
   )
   .patch(
-    authController.restrictTo("admin", "user"),
+    // authController.restrictTo("admin", "user"),
     transactionController.updateTransaction
   )
   .delete(
-    authController.restrictTo("admin"),
+    // authController.restrictTo("admin"),
     transactionController.deleteTransaction
   );
 
